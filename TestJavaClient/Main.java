@@ -9,8 +9,7 @@ import javax.swing.SwingUtilities;
  * Main.java
  * 
  * Starts up the automated trading system and handles critical errors.
- * 
- * @author gkoch
+
  *
  */
 
