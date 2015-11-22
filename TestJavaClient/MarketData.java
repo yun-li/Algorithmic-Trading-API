@@ -8,8 +8,6 @@ import java.util.HashMap;
  * MarketData.java 
  * 
  * Contains all key data object for trading system and manages their functionality.
- * 
- * @author gkoch
  *
  */
 
@@ -29,6 +27,5 @@ public class MarketData implements Serializable{
 
 	public synchronized HashMap<Integer, Transaction> getTransactionMap() {
 		return transactionMap;
-	}
-	
+	}	
 }

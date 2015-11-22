@@ -3,9 +3,10 @@ package TestJavaClient;
 /**
  * RequestMarketDataTransaction.java
  * 
- * @author dmohanty, tadams
  */
 
+
+//This is only the details of a Transcation
 public class RequestMarketDataTransaction extends Transaction{
 	
 	private static final long serialVersionUID = -1883395619001477221L;

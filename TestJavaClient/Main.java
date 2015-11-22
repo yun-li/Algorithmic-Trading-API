@@ -20,6 +20,7 @@ public class Main {
     public static void main (String args[]) {
         @SuppressWarnings("unused")
 		Controller controller = new Controller();
+                //System.out.println("I am in main and I am about to stop");
     }
 
     // Handles strings and errors, do not change.

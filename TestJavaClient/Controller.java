@@ -36,7 +36,6 @@ import com.ib.client.UnderComp;
  * 
  * Execution is controlled via timers and a finite state machine.
  * 
- * @author gkoch, lkjaero is a sexy beast, jwalsh, dmohanty, jhartless, tadams, nlopez
  *
  */
 
@@ -51,7 +50,7 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 	private EClientSocket m_client = new EClientSocket(this);
 
 	// Tracking variables
-	private int id = 10; // Each order id must be unique in order to determine what orders, commands, etc. generated a particular piece of data received by the program.
+	private int id = 18; // Each order id must be unique in order to determine what orders, commands, etc. generated a particular piece of data received by the program.
 	private TradingState currentState; // Tracks the current finite state machine (fsm) state that the algorithmic trading system is in
 	
 	// Market data object that manages all known data extracted from Interactive Brokers system
@@ -75,13 +74,16 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 		private CustomUserModule custom;
 		
 		public void run() {
+                        //System.out.println("I am in the trading thread--" + Thread.currentThread());
 			// While the trading system is still running (systemRunning), execute some algorithms...
 			while(tradingThread == Thread.currentThread()){
 				if(currentState == TradingState.COMPUTE){
 					// Here we'll write the main code to make trading decisions.
+                                        //System.out.println("before calling gateKeeper");
 					custom.gateKeeper();
 					// Now that we're done with the algorithm, we'll go to our wait state.
-					transitionState();
+					//System.out.println("after calling geteKeeper");
+                                        transitionState();
 				}
 				else if(currentState == TradingState.WAIT){
 					try {
@@ -160,6 +162,10 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 		marketData = new MarketData();
 
 		System.out.println("Trading system activated.");
+                
+                //custom.scheduledEvent("08:35"); // added by Yun
+                
+                //custom.scheduledEvent("09:00"); // added by Yun
 //		timer.setInitialDelay(0); // Delay in ms before beginning first timer event after timer is started, adjust if needed.
 	}
 	
@@ -258,6 +264,7 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 			tradingThread.start();
 			
 			custom.startButtonPressed();
+                        custom.scheduledEvent("09:00"); // added by Yun
 		}
 		else if(e.getSource() == btnStop){
 			System.out.println("Program stopped");
@@ -265,7 +272,6 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 			custom.stop();
 			stop(); // Immediately stops the execution loop for the trading system
 		}
-		
 	}
 	
 	/*
@@ -281,6 +287,8 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 			String genericTicks) {
 		updateGlobalId(); // Must be incremented, do not change.
 		
+                System.out.println("reqMktData" + tickerSymbol);
+                
 		// Set up a default contract using specified ticker symbol
 		Contract contract = new Contract();
 		// set contract fields
@@ -481,6 +489,7 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 		marketData.getTransactionMap().put(id, placeOrderTransaction);
 		
 		m_client.placeOrder(id, c, o);
+                System.out.println("In Place Order" + symbol);
 	}
 
 	/*
@@ -509,6 +518,7 @@ public class Controller extends JFrame implements EWrapper, ActionListener, java
 		RequestMarketDataTransaction rmdt = (RequestMarketDataTransaction)(marketData.getTransactionMap().get(tickerId));
 		rmdt.setField(field);
 		rmdt.setPrice(price);
+                System.out.println("In wrapper: Field:" +field + "\tPrice:" + price);
 		rmdt.setCanAutoExecute(canAutoExecute); 
 		
 	}

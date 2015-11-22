@@ -29,7 +29,8 @@ public class TimeKeeper {
 			Date date = new Date();	
 			
 			currentTime = dateFormat.format(date);
-			custom.scheduledEvent(currentTime);
+			custom.scheduledEvent(currentTime);   //an action occurs based on a specific time.  
+                                                              //allows us to run certain methods at specified time
 		}
 	}
 	
@@ -39,17 +40,22 @@ public class TimeKeeper {
 		custom = c;
 		
 		MinuteListener m = new MinuteListener();
-		scheduleTimer = new CustomTimer(60 * SECOND, m);
+		scheduleTimer = new CustomTimer(60 * SECOND, m);    // a MinuteListener exist each time a TimeKeeper is created.       
 		scheduleTimer.start();
 	}
 	
+        
+        //specify the interval and action name for an action and rerun the action periodically
+        //The action is to call costom.timerCalled
 	public void scheduleAction(int interval, String action) {
-		TimerListener t = new TimerListener();
+		TimerListener t = new TimerListener();             
 		CustomTimer timer = new CustomTimer(interval * SECOND, t);
-		timer.setName(action);
+		timer.setName(action);     //each time an action is scheduled, it is referred by this name
 		timer.start();
 		timers.add(timer);
 	}
+            
+        
 	
 	public void stopTimers() {
 		for (int i = 0; (i <= timers.size() - 1); i++) {
@@ -59,7 +65,6 @@ public class TimeKeeper {
 	
 	/**
 	 * this method allows us to retrieve yesterday's close 
-	 * @author lkjaero, jhartless
 	 */
 	public String getYesterdaysClose() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMM");// allows us to create a new dateFormat object which will be of the year and month (excluding date)

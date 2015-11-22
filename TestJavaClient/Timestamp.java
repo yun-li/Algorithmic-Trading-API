@@ -15,6 +15,8 @@ public class Timestamp implements Comparable, Serializable {
 	 * 
 	 * the format is yyyymmdd  hh:mm:ss
 	 */
+        
+        //current data and time
 	public Timestamp() {
 		DateFormat df = new SimpleDateFormat("yyyyMMdd  HH:mm:ss");
 		Date d = new Date();
@@ -37,9 +39,9 @@ public class Timestamp implements Comparable, Serializable {
 		int month = Integer.parseInt(date.substring(4,5));
 		int day = Integer.parseInt(date.substring(6,7));
 		
-		int oYear = Integer.parseInt(date.substring(0,3));
-		int oMonth = Integer.parseInt(date.substring(4,5));
-		int oDay = Integer.parseInt(date.substring(6,7));
+		int oYear = Integer.parseInt(t.getDate().substring(0,3));
+		int oMonth = Integer.parseInt(t.getDate().substring(4,5));
+		int oDay = Integer.parseInt(t.getDate().substring(6,7));
 		
 		if(year < oYear) {
 			return -1;

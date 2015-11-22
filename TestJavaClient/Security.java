@@ -7,12 +7,12 @@ import java.util.ArrayList;
  * 
  * Data object containing crucial information for a security with its current transaction history.
  * 
- * @author jhartless, nlopez
- *
  */
 
 public class Security{
 	
+        // There is a security for each type of security types--Yun
+    
 	private String symbol; // Tracks the security 
 	private SecurityType securityType;// Stores one of seven security types for this security (STK, OPT, FUT, IND, FOP, CASH, BAG)
 
@@ -22,6 +22,7 @@ public class Security{
 	private ArrayList<Integer> placeOrderHistory;//ArrayList  for Place Order
 	private ArrayList<Integer> historicalDataHistory;//ArrayList for request History Data
 	
+        //You specifity a security type and ticker symbol when you create a security
 	public Security(SecurityType newSecurityType, String tickerSymbol){
 		//sets our variables to be our incoming parameters
 		securityType = newSecurityType;

@@ -27,8 +27,5 @@ public abstract class Transaction implements Serializable {
 	}
 	public void setTransactionType(TransactionType transactionType) {
 		this.transactionType = transactionType;
-	}
-	
-	
-	
+	}	
 }
